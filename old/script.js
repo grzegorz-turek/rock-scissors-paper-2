@@ -4,6 +4,7 @@ var buttonPaper = document.getElementById('paper');
 var buttonNewGame = document.getElementById('new-game');
 var output = document.getElementById('output');
 var result = document.getElementById('result');
+//var round = document.getElementById('round');
 var finalResult = document.getElementById('final-result');
 var message = document.getElementById('message');
 
@@ -30,13 +31,19 @@ buttonRock.addEventListener ('click', function() {
             roundCount();
         } else if (computerMove == 2) {
             output.innerHTML = 'YOU WON: you played ROCK, computer played SCISSORS';
-            playerWonGroupedFunctions();
+            roundCount();
+            roundWonByPlayerCount();
+            computerWonEntireGameDisplay();
+            playerWonEntireGameDisplay();
         } else {
             output.innerHTML = 'YOU LOST: you played ROCK, computer played PAPER';
-            computerWonGroupedFunctions();
+            roundCount();
+            roundWonByComputerCount();
+            computerWonEntireGameDisplay();
+            playerWonEntireGameDisplay();
         }
     } else {
-        pleasePressTheNewGameButton();
+        finalResult.innerHTML += 'Game over, please press the new game button !!!' + '<br>';
     }
 });
 
@@ -45,16 +52,22 @@ buttonScissors.addEventListener ('click', function() {
         var computerMove = getRandomIntInclusive(1, 3);
         if (computerMove == 1) {
             output.innerHTML = 'YOU LOST: you played SCISSORS, computer played ROCK';
-            computerWonGroupedFunctions();
+            roundCount();
+            roundWonByComputerCount();
+            computerWonEntireGameDisplay();
+            playerWonEntireGameDisplay();
         } else if (computerMove == 2) {
             output.innerHTML = 'TIE: you played SCISSORS, computer played SCISSORS';
             roundCount();
         } else {
             output.innerHTML = 'YOU WON: you played SCISSORS, computer played PAPER';
-            playerWonGroupedFunctions();
+            roundCount();
+            roundWonByPlayerCount();
+            computerWonEntireGameDisplay();
+            playerWonEntireGameDisplay();
         }
     } else {
-        pleasePressTheNewGameButton();
+        finalResult.innerHTML += 'Game over, please press the new game button !!!' + '<br>';
     }
 });
 
@@ -63,39 +76,32 @@ buttonPaper.addEventListener ('click', function() {
         var computerMove = getRandomIntInclusive(1, 3);
         if (computerMove == 1) {
             output.innerHTML = 'YOU WON: you played PAPER, computer played ROCK';
-            playerWonGroupedFunctions();
+            roundCount();
+            roundWonByPlayerCount();
+            computerWonEntireGameDisplay();
+            playerWonEntireGameDisplay();
         } else if (computerMove == 2) {
             output.innerHTML = 'YOU LOST: you played PAPER, computer played SCISSORS';
-            computerWonGroupedFunctions();
+            roundCount();
+            roundWonByComputerCount();
+            computerWonEntireGameDisplay();
+            playerWonEntireGameDisplay();
         } else {
             output.innerHTML = 'TIE: you played PAPER, computer played PAPER';
             roundCount();
         }
     } else {
-        pleasePressTheNewGameButton();
+        finalResult.innerHTML += 'Game over, please press the new game button !!!' + '<br>';
     }
 });
 
-function pleasePressTheNewGameButton() {
-    finalResult.innerHTML += 'Game over, please press the new game button !!!' + '<br>';
-}
-
-function computerWonGroupedFunctions() {
-    roundCount();
-    roundWonByComputerCount();
-    winnerWonEntireGameDisplay();
-}
-
-function playerWonGroupedFunctions() {
-    roundCount();
-    roundWonByPlayerCount();
-    winnerWonEntireGameDisplay();
-}
-
-function winnerWonEntireGameDisplay() {
+function computerWonEntireGameDisplay() {
     if (roundToWinNumber == roundWonByComputerNumber) {
         output.innerHTML += ', COMPUTER WON ENTIRE GAME !!!';
     }
+}
+
+function playerWonEntireGameDisplay() {
     if (roundToWinNumber == roundWonByPlayerNumber) {
         output.innerHTML += ', YOU WON ENTIRE GAME !!!';
     }
@@ -120,6 +126,7 @@ function roundWonByPlayerCount() {
 }
 
 function display() {
+    //round.innerHTML = 'Round number: ' + roundNumber + '<br>' + 'Rounds won by Computer: ' + roundWonByComputerNumber + '<br>' + 'Rounds won by Player: ' + roundWonByPlayerNumber + '<br>' + 'roundToWinNumber' + roundToWinNumber;
     result.innerHTML = '(You) ' + roundWonByPlayerNumber + ' - ' + roundWonByComputerNumber + ' (Computer)';
     message.innerHTML = 'The first one who wins ' + roundToWinNumber + ' rounds is the entire game winner';
 }
